@@ -1,43 +1,126 @@
-# Astro Starter Kit: Minimal
+# Tone
 
-```sh
-npm create astro@latest -- --template minimal
+Minimal Astro blog starter with quiet defaults.
+
+<p>
+  <a href="https://hanityx.github.io/astro-tone/">Live demo</a> ·
+  <a href="https://github.com/hanityx/astro-tone">Use this template</a>
+</p>
+
+![Tone responsive preview](.github/assets/astro-tone-showcase-1600x900.png)
+
+## Command Palette
+
+Open quick post search with `Cmd`/`Ctrl` + `K`.
+
+<p>
+  <img src=".github/assets/command-palette-light-1600x900.png" alt="Tone command palette in light mode" width="49%" />
+  <img src=".github/assets/command-palette-dark-1600x900.png" alt="Tone command palette in dark mode" width="49%" />
+</p>
+
+## Features
+
+- Responsive Astro 6 static site
+- Markdown and MDX posts in `src/content/posts`
+- Posts index with category filters and inline list search
+- `/search` route powered by Pagefind
+- `Cmd`/`Ctrl` + `K` command palette for quick post search
+- Dark mode with CSS tokens
+- Custom code block theme via Expressive Code
+- Related posts, RSS, sitemap, Open Graph metadata, and JSON-LD
+- Optional giscus comments, disabled by default
+- Optional `focusEffect: 'scroll-dark'` for long-form posts
+
+<details>
+<summary>Performance Snapshot</summary>
+
+Measured with Lighthouse 12.8.2 against a local production preview on May 20, 2026. Treat these as a reproducible baseline, not a permanent hosted score.
+
+| Surface | Mode    | Performance | Accessibility | Best Practices | SEO | FCP    | LCP    | CLS | TBT  |
+| ------- | ------- | ----------- | ------------- | -------------- | --- | ------ | ------ | --- | ---- |
+| Home    | Mobile  | 100         | 100           | 100            | 100 | 830 ms | 981 ms | 0   | 0 ms |
+| Home    | Desktop | 100         | 100           | 100            | 100 | 228 ms | 249 ms | 0   | 0 ms |
+| Post    | Mobile  | 100         | 100           | 100            | 100 | 1.21 s | 1.36 s | 0   | 0 ms |
+| Post    | Desktop | 100         | 100           | 100            | 100 | 349 ms | 372 ms | 0   | 0 ms |
+
+Additional local measurements:
+
+- Home transfer size: 145 KiB mobile, 152 KiB desktop
+- Post transfer size: 44 KiB mobile, 48 KiB desktop
+- Cumulative Layout Shift: `0` on all measured pages
+- Total Blocking Time: `0 ms` on all measured pages
+- Static output: 9 pages in the current sample set
+- Pagefind index: 4 pages, 828 words
+
+Reproduce locally:
+
+```bash
+pnpm build
+pnpm preview -- --host 127.0.0.1 --port 4321
+npx lighthouse http://127.0.0.1:4321/ --output=json
+npx lighthouse http://127.0.0.1:4321/ --preset=desktop --output=json
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+</details>
 
-## 🚀 Project Structure
+## Quick Start
 
-Inside of your Astro project, you'll see the following folders and files:
+Requires Node.js 22.12.0 or newer.
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+Use the template:
+
+```bash
+pnpm create astro@latest astro-tone --template hanityx/astro-tone
+cd astro-tone
+pnpm dev
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+Or clone it directly:
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+```bash
+git clone https://github.com/hanityx/astro-tone.git
+cd astro-tone
+pnpm install
+pnpm dev
+```
 
-Any static assets, like images, can be placed in the `public/` directory.
+The local dev server usually starts at `http://localhost:4321`.
 
-## 🧞 Commands
+Before publishing your own site, update `astro-theme-config.ts`, replace the
+sample content and assets, then run `pnpm check`, `pnpm lint`,
+`pnpm lint:css`, and `pnpm build`.
 
-All commands are run from the root of the project, from a terminal:
+## Commands
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+| Command            | Action                                         |
+| ------------------ | ---------------------------------------------- |
+| `pnpm dev`      | Start the local dev server                     |
+| `pnpm build`    | Build the site and generate the Pagefind index |
+| `pnpm preview`  | Preview the production build                   |
+| `pnpm check`    | Run Astro type checks                          |
+| `pnpm lint`     | Run ESLint                                     |
+| `pnpm lint:css` | Run Stylelint                                  |
+| `pnpm format`   | Format source files with Prettier              |
 
-## 👀 Want to learn more?
+## Customize
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Most site-level settings live in `astro-theme-config.ts`.
+
+The bundled [setup post](src/content/posts/getting-started-v2.md) walks through
+configuration, the project structure, writing posts, replacing the samples,
+deployment, and optional giscus comments.
+
+## Deploy
+
+Tone builds as a static site.
+
+| Setting          | Value           |
+| ---------------- | --------------- |
+| Build command    | `pnpm build` |
+| Output directory | `dist`          |
+
+The starter supports domain-root deploys and GitHub Pages project paths.
+
+## License
+
+MIT licensed.
