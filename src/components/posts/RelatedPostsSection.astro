@@ -1,0 +1,28 @@
+---
+import FeaturedPostGrid from '../FeaturedPostGrid.astro';
+import type { PostEntry } from '../../content/post-queries';
+import { getUiText } from '../../ui';
+import { withBase } from '../../utils/paths';
+
+type Props = {
+  posts: PostEntry[];
+};
+
+const { posts } = Astro.props;
+const tr = getUiText();
+const postsBase = withBase('/posts');
+---
+
+{
+  posts.length > 0 && (
+    <section class="related-section" data-pagefind-ignore="all">
+      <div class="related-header">
+        <p class="related-label">{tr.relatedPosts}</p>
+        <a href={postsBase} class="related-view-all">
+          {tr.allPosts}
+        </a>
+      </div>
+      <FeaturedPostGrid posts={posts} variant="related" />
+    </section>
+  )
+}

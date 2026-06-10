@@ -1,0 +1,19 @@
+---
+type Props = {
+  label: string;
+  heading: string;
+  items: string[];
+};
+
+const { label, heading, items } = Astro.props;
+---
+
+<section class="about-section" aria-labelledby="about-focus">
+  <p class="section-label">{label}</p>
+  <div>
+    <h2 id="about-focus" class="section-heading">{heading}</h2>
+    <ul class="focus-list">
+      {items.map((item) => <li>{item}</li>)}
+    </ul>
+  </div>
+</section>

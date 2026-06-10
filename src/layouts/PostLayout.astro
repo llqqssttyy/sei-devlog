@@ -1,21 +1,21 @@
 ---
 import 'toc-rail/style.css';
 import '../styles/layouts/post.css';
-import type { CollectionEntry } from 'astro:content';
 import Comments from '../components/Comments.astro';
-import FeaturedPostGrid from '../components/FeaturedPostGrid.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import ImageLightbox from '../components/ImageLightbox.astro';
+import RelatedPostsSection from '../components/posts/RelatedPostsSection.astro';
 import ScrollFocus from '../components/ScrollFocus.astro';
+import type { PostEntry } from '../content/post-queries';
 import BaseLayout from './BaseLayout.astro';
 import { SITE_AUTHOR, SITE_LANG, SITE_TITLE } from '../consts';
 import { getUiText } from '../ui';
 import { withBase } from '../utils/paths';
 import { serializeScriptJson } from '../utils/serialize-script-json';
 
-type Props = CollectionEntry<'posts'>['data'] & {
+type Props = PostEntry['data'] & {
   readingTime?: number;
-  relatedPosts?: CollectionEntry<'posts'>[];
+  relatedPosts?: PostEntry[];
 };
 
 const {
@@ -103,19 +103,7 @@ const jsonLd = serializeScriptJson({
         <slot />
       </div>
 
-      {
-        relatedPosts.length > 0 && (
-          <section class="related-section" data-pagefind-ignore="all">
-            <div class="related-header">
-              <p class="related-label">{tr.relatedPosts}</p>
-              <a href={postsBase} class="related-view-all">
-                {tr.allPosts}
-              </a>
-            </div>
-            <FeaturedPostGrid posts={relatedPosts} variant="related" />
-          </section>
-        )
-      }
+      <RelatedPostsSection posts={relatedPosts} />
     </article>
     <Comments />
   </main>

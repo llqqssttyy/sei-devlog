@@ -3,14 +3,17 @@ import '../styles/global.css';
 import type { ImageMetadata } from 'astro';
 import config from '../../astro-theme-config';
 import pretendardFontUrl from '../assets/fonts/pretendard-variable.woff2';
-import { SITE_TITLE, SITE_DESCRIPTION, SITE_AUTHOR, SITE_LOCALE } from '../consts';
+import { SITE_TITLE, SITE_AUTHOR, SITE_LOCALE } from '../consts';
+import { isCommentsModeEnabled, parseCommentsMode, parseEnabledFlag } from '../lib/parse';
+import {
+  createWebsiteJsonLd,
+  resolveCanonicalUrl,
+  resolveDocumentTitle,
+  resolveOgImageUrl,
+  resolvePageUrl,
+} from '../lib/seo';
 import { withBase } from '../utils/paths';
 import { serializeScriptJson } from '../utils/serialize-script-json';
-
-// Enable with PUBLIC_VERCEL_ANALYTICS=true.
-const analyticsEnabled = import.meta.env.PUBLIC_VERCEL_ANALYTICS === 'true';
-const commentsMode = import.meta.env.PUBLIC_GISCUS_MODE || config.comments.mode;
-const commentsEnabled = commentsMode === 'giscus' || commentsMode === 'giscus-custom';
 
 interface Props {
   title: string;
@@ -48,47 +51,36 @@ const {
   locale,
 } = Astro.props;
 
-const canonicalURL = canonicalUrl
-  ? new URL(canonicalUrl, Astro.site)
-  : new URL(Astro.url.pathname, Astro.site);
+const analyticsEnabled = parseEnabledFlag(import.meta.env.PUBLIC_VERCEL_ANALYTICS);
+const commentsMode = parseCommentsMode(import.meta.env.PUBLIC_GISCUS_MODE, config.comments.mode);
+const commentsEnabled = isCommentsModeEnabled(commentsMode);
+const siteUrl = Astro.site ?? Astro.url;
+const canonicalURL = resolveCanonicalUrl({
+  canonicalUrl,
+  pathname: Astro.url.pathname,
+  site: siteUrl,
+});
 const ogLocale = locale ?? SITE_LOCALE;
-const documentTitle = title === SITE_TITLE ? title : `${title} — ${SITE_TITLE}`;
+const documentTitle = resolveDocumentTitle(title);
 const fallbackOgImageUrl = config.site.defaultOgImage;
-const ogImage = ogImageUrl
-  ? new URL(withBase(ogImageUrl), Astro.site)
-  : image
-    ? new URL(image.src, Astro.url)
-    : fallbackOgImageUrl
-      ? new URL(withBase(fallbackOgImageUrl), Astro.site)
-      : null;
+const ogImage = resolveOgImageUrl({
+  ogImageUrl,
+  imageSrc: image?.src,
+  currentUrl: Astro.url,
+  site: siteUrl,
+  fallbackOgImageUrl,
+});
 const canonicalHref = canonicalURL.toString();
-const siteHref = new URL(withBase('/'), Astro.site).toString();
-const searchHref = new URL(withBase('/search'), Astro.site).toString();
-const rssHref = new URL(withBase('/rss.xml'), Astro.site).toString();
-const sitemapHref = new URL(withBase('/sitemap-index.xml'), Astro.site).toString();
-const pageHref = pageUrl ? new URL(pageUrl, Astro.site).toString() : Astro.url.toString();
+const siteHref = new URL(withBase('/'), siteUrl).toString();
+const searchHref = new URL(withBase('/search'), siteUrl).toString();
+const rssHref = new URL(withBase('/rss.xml'), siteUrl).toString();
+const sitemapHref = new URL(withBase('/sitemap-index.xml'), siteUrl).toString();
+const pageHref = resolvePageUrl({ pageUrl, currentUrl: Astro.url, site: siteUrl });
 const ogImageHref = ogImage?.toString();
 
 // WebSite JSON-LD for website pages only.
 const websiteJsonLd =
-  type === 'website'
-    ? serializeScriptJson({
-        '@context': 'https://schema.org',
-        '@type': 'WebSite',
-        name: SITE_TITLE,
-        description: SITE_DESCRIPTION,
-        url: siteHref,
-        author: { '@type': 'Person', name: SITE_AUTHOR },
-        potentialAction: {
-          '@type': 'SearchAction',
-          target: {
-            '@type': 'EntryPoint',
-            urlTemplate: `${searchHref}?q={search_term_string}`,
-          },
-          'query-input': 'required name=search_term_string',
-        },
-      })
-    : null;
+  type === 'website' ? serializeScriptJson(createWebsiteJsonLd({ siteHref, searchHref })) : null;
 ---
 
 <!-- Global Metadata -->
@@ -100,7 +92,9 @@ const websiteJsonLd =
   (function () {
     let d;
     try {
-      d = localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      d =
+        localStorage.getItem('theme') ||
+        (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
     } catch {
       d = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     }
@@ -108,7 +102,9 @@ const websiteJsonLd =
     el.setAttribute('data-theme', d);
     el.classList.add('no-transitions');
     requestAnimationFrame(function () {
-      requestAnimationFrame(function () { el.classList.remove('no-transitions'); });
+      requestAnimationFrame(function () {
+        el.classList.remove('no-transitions');
+      });
     });
   })();
 </script>

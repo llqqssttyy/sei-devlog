@@ -1,0 +1,70 @@
+---
+type ProfileLink = {
+  label: string;
+  href: string;
+};
+
+type Props = {
+  imageUrl: string;
+  name: string;
+  role: string;
+  location: string;
+  focus: string;
+  links: ProfileLink[];
+};
+
+const { imageUrl, name, role, location, focus, links } = Astro.props;
+const hasImage = imageUrl.length > 0;
+---
+
+<aside
+  class:list={['profile-panel', !hasImage && 'profile-panel--text']}
+  aria-label="Profile preview"
+>
+  {
+    hasImage && (
+      <figure class="profile-media">
+        <img
+          src={imageUrl}
+          width="720"
+          height="720"
+          alt={`${name} profile portrait`}
+          loading="eager"
+          referrerpolicy="no-referrer"
+        />
+      </figure>
+    )
+  }
+  <div class="profile-summary">
+    <p class="profile-name">{name}</p>
+    <p class="profile-role">{role}</p>
+  </div>
+  <dl class="profile-meta">
+    <div>
+      <dt>Location</dt>
+      <dd>{location}</dd>
+    </div>
+    <div>
+      <dt>Focus</dt>
+      <dd>{focus}</dd>
+    </div>
+    {
+      links.length > 0 && (
+        <div>
+          <dt>Links</dt>
+          <dd class="profile-links">
+            {links.map((link) => (
+              <a
+                href={link.href}
+                target={link.href.startsWith('mailto:') ? undefined : '_blank'}
+                rel={link.href.startsWith('mailto:') ? undefined : 'noopener'}
+              >
+                {link.label}
+              </a>
+            ))}
+          </dd>
+        </div>
+      )
+    }
+  </dl>
+</aside>

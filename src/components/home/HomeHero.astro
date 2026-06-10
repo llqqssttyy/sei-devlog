@@ -1,0 +1,67 @@
+---
+import type { PostEntry } from '../../content/post-queries';
+import { DATE_LOCALE, SITE_DESCRIPTION } from '../../consts';
+import { getUiText } from '../../ui';
+import { withBase } from '../../utils/paths';
+
+type Props = {
+  posts: PostEntry[];
+};
+
+const { posts } = Astro.props;
+const tr = getUiText();
+const heroDateFormatter = new Intl.DateTimeFormat(DATE_LOCALE, {
+  year: 'numeric',
+  month: 'short',
+  day: '2-digit',
+});
+const getHeroDateParts = (date: Date) => ({
+  label: heroDateFormatter.format(date),
+  parts: heroDateFormatter.formatToParts(date),
+});
+---
+
+<section class="hero">
+  <h1 class="hero-title">
+    <span class="hero-title-line">{tr.heroTitle}</span>
+    {
+      tr.heroTitleLine2 && (
+        <span class="hero-title-line hero-title-line--accent">{tr.heroTitleLine2}</span>
+      )
+    }
+  </h1>
+
+  <p class="hero-desc">{SITE_DESCRIPTION}</p>
+
+  <div class="hero-divider" aria-hidden="true"></div>
+
+  {
+    posts.length > 0 && (
+      <nav class="hero-recent" aria-label="Selected posts">
+        <div class="hero-recent-list">
+          {posts.map((post) => {
+            const heroDate = getHeroDateParts(post.data.pubDate);
+
+            return (
+              <a href={withBase(`/posts/${post.id}/`)} class="hero-recent-item">
+                <span class="hero-recent-main">
+                  <span class="hero-recent-title">{post.data.title}</span>
+                  <span class="hero-recent-arrow" aria-hidden="true">
+                    ↗
+                  </span>
+                </span>
+                <span class="hero-recent-date">
+                  <time datetime={post.data.pubDate.toISOString()} aria-label={heroDate.label}>
+                    {heroDate.parts.map((part) => (
+                      <span class={`hero-recent-date-${part.type}`}>{part.value}</span>
+                    ))}
+                  </time>
+                </span>
+              </a>
+            );
+          })}
+        </div>
+      </nav>
+    )
+  }
+</section>

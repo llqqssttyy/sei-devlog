@@ -1,0 +1,31 @@
+---
+type CareerItem = {
+  period: string;
+  title: string;
+  description: string;
+};
+
+type Props = {
+  label: string;
+  items: CareerItem[];
+};
+
+const { label, items } = Astro.props;
+---
+
+<section class="about-section" aria-label={label}>
+  <p class="section-label">{label}</p>
+  <div class="career-list">
+    {
+      items.map((item) => (
+        <article class="career-item">
+          <time>{item.period}</time>
+          <div>
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+</section>

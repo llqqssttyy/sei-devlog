@@ -1,0 +1,55 @@
+---
+import { Image, getImage } from 'astro:assets';
+import FormattedDate from '../FormattedDate.astro';
+import type { PostEntry } from '../../content/post-queries';
+import { getUiText } from '../../ui';
+import { withBase } from '../../utils/paths';
+
+type Props = {
+  post: PostEntry;
+};
+
+const { post } = Astro.props;
+const tr = getUiText();
+const placeholder = post.data.heroImage
+  ? await getImage({
+      src: post.data.heroImage,
+      width: 48,
+      format: 'webp',
+      quality: 28,
+    })
+  : undefined;
+const placeholderStyle = placeholder
+  ? `--tone-image-placeholder: url("${placeholder.src}");`
+  : undefined;
+---
+
+<section class="featured-section">
+  <a href={withBase(`/posts/${post.id}/`)} class="featured-card">
+    <div class="featured-text">
+      <p class="featured-meta">
+        <FormattedDate date={post.data.pubDate} />
+      </p>
+      <h2 class="featured-title">{post.data.title}</h2>
+      {post.data.description && <p class="featured-desc">{post.data.description}</p>}
+      <span class="featured-cta">{tr.readLink}</span>
+    </div>
+    <div class="featured-thumb-wrap" style={placeholderStyle}>
+      {
+        post.data.heroImage ? (
+          <Image
+            src={post.data.heroImage}
+            alt={post.data.title}
+            class="featured-thumb"
+            widths={[400, 720, 960, 1280]}
+            sizes="(max-width: 600px) calc(100vw - 32px), 360px"
+            quality={88}
+            loading="lazy"
+          />
+        ) : (
+          <div class="featured-thumb card-img-placeholder" />
+        )
+      }
+    </div>
+  </a>
+</section>

@@ -1,0 +1,26 @@
+---
+import FeaturedPostGrid from '../FeaturedPostGrid.astro';
+import type { PostEntry } from '../../content/post-queries';
+import { getUiText } from '../../ui';
+import { withBase } from '../../utils/paths';
+
+type Props = {
+  posts: PostEntry[];
+};
+
+const { posts } = Astro.props;
+const tr = getUiText();
+---
+
+{
+  posts.length > 0 && (
+    <section class="posts-section">
+      <div class="posts-header">
+        <a href={withBase('/posts')} class="view-all">
+          {tr.viewAll}
+        </a>
+      </div>
+      <FeaturedPostGrid posts={posts} />
+    </section>
+  )
+}

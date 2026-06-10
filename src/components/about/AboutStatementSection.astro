@@ -1,0 +1,19 @@
+---
+type Props = {
+  label: string;
+  title: string;
+  statement: string;
+};
+
+const { label, title, statement } = Astro.props;
+---
+
+<section class="about-section about-statement" aria-labelledby="about-statement">
+  <p class="section-label">{label}</p>
+  <div>
+    <h2 id="about-statement" class="section-heading">
+      {title}
+    </h2>
+    <p>{statement}</p>
+  </div>
+</section>

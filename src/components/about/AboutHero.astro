@@ -1,0 +1,19 @@
+---
+type Props = {
+  headline: string[];
+  lead: string;
+};
+
+const { headline, lead } = Astro.props;
+const [headlineFirst, headlineSecond] = headline;
+---
+
+<div class="about-intro">
+  <h1 id="about-title" class="about-title">
+    {headlineFirst}<br />
+    {headlineSecond}
+  </h1>
+  <p class="about-lead">
+    {lead}
+  </p>
+</div>
