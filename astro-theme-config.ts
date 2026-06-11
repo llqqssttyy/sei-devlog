@@ -1,3 +1,12 @@
+import {
+  CATEGORY_AI,
+  CATEGORY_BOOK,
+  CATEGORY_FRONTEND,
+  CATEGORY_INFRASTRUCTURE,
+  CATEGORY_OPEN_SOURCE,
+  CATEGORY_OTHER,
+} from './src/config/categories';
+
 type NavItem = {
   label: string;
   href: string;
@@ -13,25 +22,25 @@ type NavItem = {
 const config = {
   site: {
     /** Production origin, used for canonical links, sitemap, and Open Graph metadata. */
-    url: 'https://example.com',
+    url: 'https://dan.io.kr',
     /** Subpath such as '/repo-name'. Keep empty when deploying at a domain root. */
     base: '',
-    lang: 'en',
-    locale: 'en_US',
-    dateLocale: 'en-US',
-    title: 'Tone',
-    logoLabel: 'Tone',
-    description: 'A minimal Astro theme for posts and notes.',
-    author: 'Alex Morgan',
+    lang: 'ko',
+    locale: 'ko_KR',
+    dateLocale: 'ko-KR',
+    title: 'Dan',
+    logoLabel: 'Dan',
+    description: '제품을 만들면서 마주친 문제와 판단 과정을 기록합니다',
+    author: 'Kim DaEun',
     /** Optional absolute or root-relative image URL for homepage/search/about social previews. */
     defaultOgImage: '/og.png',
   },
 
-  // The logo already links to `/`. Add items here if you want visible header links.
-  // Example: [{ label: 'Posts', href: '/posts' }, { label: 'About', href: '/about' }]
-  nav: [] as NavItem[],
+  nav: [
+    { label: 'Posts', href: '/posts' },
+    { label: 'About', href: '/about' },
+  ] as NavItem[],
 
-  // Footer links stay visible by default so readers have a stable way to move around.
   footerNav: [
     { label: 'Posts', href: '/posts' },
     { label: 'About', href: '/about' },
@@ -40,15 +49,12 @@ const config = {
 
   content: {
     categoryOrder: [
-      'Design',
-      'Getting Started',
-      'Markdown',
-      'Open Source',
-      'Systems',
-      'Notes',
-      'Research',
-      'Performance',
-      'MDX',
+      CATEGORY_AI,
+      CATEGORY_FRONTEND,
+      CATEGORY_INFRASTRUCTURE,
+      CATEGORY_OPEN_SOURCE,
+      CATEGORY_BOOK,
+      CATEGORY_OTHER,
     ],
   },
 
@@ -65,7 +71,7 @@ const config = {
     mode: 'off',
     provider: 'giscus',
     giscus: {
-      repo: '',
+      repo: 'https://github.com/llqqssttyy/sei-devlog.git',
       repoId: '',
       category: '',
       categoryId: '',
@@ -83,53 +89,55 @@ const config = {
   },
 
   social: {
-    website: 'https://hanityx.github.io/astro-tone/', // e.g. 'https://your-site.com'
-    email: '', // e.g. 'hello@your-site.com'
-    linkedin: '', // e.g. 'https://www.linkedin.com/in/yourhandle'
-    github: 'https://github.com/hanityx/astro-tone', // e.g. 'https://github.com/yourhandle'
+    website: 'https://dan.io.kr', // e.g. 'https://your-site.com'
+    email: 'midekuna@gmail.com', // e.g. 'hello@your-site.com'
+    linkedin: 'https://www.linkedin.com/in/%EB%8B%A4%EC%9D%80-%EA%B9%80-24544b246/', // e.g. 'https://www.linkedin.com/in/yourhandle'
+    github: 'https://github.com/llqqssttyy', // e.g. 'https://github.com/yourhandle'
   },
 
   about: {
     /** Profile image URL. Leave empty to use the text-only About layout. */
     profileImage: '',
-    name: 'Alex Morgan',
-    role: 'Writes about useful small tools and the notes behind them.',
-    location: 'Anywhere',
-    focus: 'Writing, small tools, and notes worth returning to.',
-    lead: 'Alex writes about small product decisions, interface craft, and the notes that make work easier to return to.',
-    headline: ['Made to', 'last.'],
+    name: 'Kim DaEun',
+    role: '문제 정의부터 시작하는 프론트엔드 개발자.',
+    location: 'Korea',
+    focus: 'Frontend architecture, product systems, SEO/GEO, DX, and useful small tools.',
+    lead: '',
+    headline: ['Build with', 'reasons.'],
     statementLabel: 'Work',
-    statementTitle: 'Notes on making useful things.',
+    statementTitle: '구현보다 먼저 문제를 정의합니다.',
     statement:
-      'This page is intentionally spare: a short bio, a few links, and enough context for readers who want to know who is writing.',
+      '프론트엔드 개발자로서 제품의 표면을 만드는 일에 머무르지 않고, 정보 구조, 성능, 접근성, 검색 노출, 개발 워크플로우까지 함께 살핍니다. ',
     careerLabel: 'Career',
     career: [
       {
-        period: 'Current',
-        title: 'Independent practice',
+        period: 'Freelance Project',
+        title: 'Web Fullstack',
         description:
-          'Designing calm interfaces, writing field notes, and helping teams clarify product surfaces.',
+          'B2B 기업의 웹사이트와 어드민을 단독으로 설계 및 구현했습니다. AI Agent를 만들어 , SEO/GEO, 정보 구조, 문의 관리 흐름, Cloudflare 기반 인프라를 정리해 검색 노출과 운영 효율을 개선했습니다.',
       },
       {
-        period: 'Selected',
-        title: 'Product systems',
+        period: '월급쟁이부자들(Weolbu)',
+        title: 'Frontend',
         description:
-          'Worked across design systems, editorial tooling, and early-stage product foundations.',
+          '강의와 커뮤니티 도메인에서 제품 리뉴얼, 디자인 시스템, 성능 개선, DX 개선을 수행했습니다. 반복 구현을 추상화하고 비효율적인 워크플로우를 구조화해 개발 생산성을 높였습니다.',
       },
       {
-        period: 'Elsewhere',
-        title: 'Writing and reference',
+        period: '우아한테크코스 6기(Woowa Course 6th)',
+        title: 'Web Frontend',
         description:
-          'Keeping a public archive of notes, examples, and references worth returning to.',
+          'React와 TypeScript 기반의 프론트엔드 기초를 다지고, 팀 프로젝트에서 리크루팅 플랫폼의 동적 폼, 디자인 시스템, 지원자 관리 기능을 구현했습니다.',
       },
     ],
+
     interests: [
-      'Interface systems that stay quiet until needed',
-      'Writing as a way to keep product judgment visible',
-      'Tools and habits that make long work easier to resume',
+      'Communication is the job',
+      'Work can also be your hobby',
+      'Get 1% better every day',
+      'Lead with empathy. They might just be having a bad day',
     ],
-    interestsLabel: 'Interests',
-    interestsHeading: 'What the work keeps returning to',
+    interestsLabel: 'Things I Believe',
+    interestsHeading: '나를 만드는 문장들',
   },
 };
 

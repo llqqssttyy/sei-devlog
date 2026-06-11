@@ -5,7 +5,6 @@ import AboutCareerSection from '../components/about/AboutCareerSection.astro';
 import AboutFocusSection from '../components/about/AboutFocusSection.astro';
 import AboutHero from '../components/about/AboutHero.astro';
 import AboutProfilePanel from '../components/about/AboutProfilePanel.astro';
-import AboutStatementSection from '../components/about/AboutStatementSection.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 const profileImageUrl = config.about.profileImage.trim();
@@ -14,9 +13,6 @@ const profileRole = config.about.role;
 const profileLocation = config.about.location;
 const profileFocus = config.about.focus;
 const profileLead = config.about.lead;
-const statementLabel = config.about.statementLabel;
-const statementTitle = config.about.statementTitle;
-const statement = config.about.statement;
 const careerLabel = config.about.careerLabel;
 const careerItems = config.about.career;
 const focusItems = config.about.interests;
@@ -56,7 +52,7 @@ const profileLinks = [
       />
     </section>
 
-    <AboutStatementSection label={statementLabel} title={statementTitle} statement={statement} />
+    <!-- <AboutStatementSection label={statementLabel} title={statementTitle} statement={statement} /> -->
     <AboutCareerSection label={careerLabel} items={careerItems} />
     <AboutFocusSection label={interestsLabel} heading={interestsHeading} items={focusItems} />
   </main>
