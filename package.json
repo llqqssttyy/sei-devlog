@@ -27,7 +27,8 @@
     "check": "astro check",
     "format": "prettier --write \"src/**/*.{astro,ts,css,md,mdx}\"",
     "lint": "eslint \"src/**/*.{js,ts,astro}\" \"*.mjs\"",
-    "lint:css": "stylelint \"src/**/*.{css,astro}\""
+    "lint:css": "stylelint \"src/**/*.{css,astro}\"",
+    "deploy": "pnpm run build && wrangler deploy"
   },
   "dependencies": {
     "@astrojs/mdx": "^5.0.3",
@@ -54,7 +55,8 @@
     "stylelint": "^17.11.0",
     "stylelint-config-standard": "^40.0.0",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.46.3"
+    "typescript-eslint": "^8.46.3",
+    "wrangler": "^4.99.0"
   },
   "overrides": {
     "@typescript-eslint/scope-manager": "8.46.3",
