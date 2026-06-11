@@ -184,7 +184,7 @@
   max-width: 20ch;
   margin: 0;
   color: var(--label-primary);
-  font-size: clamp(1.58rem, 2.85vw, 2.15rem);
+  font-size: clamp(var(--text-headline), 2.85vw, var(--text-title-3));
   font-weight: var(--weight-semibold);
   letter-spacing: var(--tracking-tight);
   line-height: var(--leading-tight);
