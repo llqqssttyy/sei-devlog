@@ -38,14 +38,14 @@ const config = {
   },
 
   nav: [
-    { label: 'Posts', href: '/posts' },
-    { label: 'About', href: '/about' },
+    { label: 'Posts', href: '/posts/' },
+    { label: 'About', href: '/about/' },
   ] as NavItem[],
 
   footerNav: [
-    { label: 'Posts', href: '/posts' },
-    { label: 'About', href: '/about' },
-    { label: 'Search', href: '/search' },
+    { label: 'Posts', href: '/posts/' },
+    { label: 'About', href: '/about/' },
+    { label: 'Search', href: '/search/' },
   ] as NavItem[],
 
   content: {
