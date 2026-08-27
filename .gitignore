@@ -31,6 +31,7 @@ playwright-report/
 
 # local notes
 local-docs/
+plan/
 .codex/
 .playwright-mcp/
 .vercel

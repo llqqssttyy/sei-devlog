@@ -33,6 +33,7 @@ Current route groups:
 - `about.astro` for the about page.
 - `search.astro` for site search.
 - `posts/` for post index and post detail routes.
+- `posts/[...slug]/llms.txt.ts` for generated per-post `llms.txt` endpoints.
 - `rss.xml.js` and `robots.txt.js` for generated static endpoints.
 - `404.astro` for the not-found page.
 
@@ -73,6 +74,7 @@ Add content helpers here only when they are close to Astro content collections:
 
 - `post-queries.ts` should expose type-safe content collection reads. It should not hide page-specific filtering, sorting, ranking, slicing, or grouping rules.
 - `post-helpers.ts` should hold small post-specific helpers such as reading-time calculation, category comparison, related-post scoring, and home-section selection helpers.
+- `post-llms.ts` should hold the per-post plain-text formatter used by generated `llms.txt` routes.
 
 Query functions should make raw content access safer, not less transparent. Even common rules such as excluding drafts or sorting by publish date should stay visible near the route or move to an explicitly named helper when repetition becomes noisy.
 

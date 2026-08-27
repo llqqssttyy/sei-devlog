@@ -5,6 +5,7 @@ import {
   CATEGORY_INFRASTRUCTURE,
   CATEGORY_OPEN_SOURCE,
   CATEGORY_OTHER,
+  CATEGORY_WOOWA_COURSE,
 } from './src/config/categories';
 
 type NavItem = {
@@ -51,6 +52,7 @@ const config = {
     categoryOrder: [
       CATEGORY_AI,
       CATEGORY_FRONTEND,
+      CATEGORY_WOOWA_COURSE,
       CATEGORY_INFRASTRUCTURE,
       CATEGORY_OPEN_SOURCE,
       CATEGORY_BOOK,
