@@ -30,7 +30,7 @@ const {
 } = Astro.props;
 
 const tr = getUiText();
-const postsBase = withBase('/posts');
+const postsBase = withBase('/posts/');
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const pubDateISO = pubDate.toISOString();

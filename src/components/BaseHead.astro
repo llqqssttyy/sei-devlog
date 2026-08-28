@@ -72,7 +72,7 @@ const ogImage = resolveOgImageUrl({
 });
 const canonicalHref = canonicalURL.toString();
 const siteHref = new URL(withBase('/'), siteUrl).toString();
-const searchHref = new URL(withBase('/search'), siteUrl).toString();
+const searchHref = new URL(withBase('/search/'), siteUrl).toString();
 const rssHref = new URL(withBase('/rss.xml'), siteUrl).toString();
 const sitemapHref = new URL(withBase('/sitemap-index.xml'), siteUrl).toString();
 const pageHref = resolvePageUrl({ pageUrl, currentUrl: Astro.url, site: siteUrl });

@@ -36,7 +36,9 @@ export default defineConfig({
       filter: (page) => !sitemapExcludedPaths.has(withoutConfiguredBase(new URL(page).pathname)),
     }),
   ],
+  trailingSlash: 'always',
   build: {
+    format: 'directory',
     inlineStylesheets: 'always',
   },
 
