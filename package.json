@@ -28,7 +28,9 @@
     "format": "prettier --write \"src/**/*.{astro,ts,css,md,mdx}\"",
     "lint": "eslint \"src/**/*.{js,ts,astro}\" \"*.mjs\"",
     "lint:css": "stylelint \"src/**/*.{css,astro}\"",
-    "deploy": "pnpm run build && wrangler deploy"
+    "deploy": "pnpm run build && wrangler deploy",
+    "indexnow:submit": "node scripts/submit-indexnow.mjs",
+    "indexnow:submit:dry": "node scripts/submit-indexnow.mjs --dry"
   },
   "dependencies": {
     "@astrojs/mdx": "^5.0.3",
