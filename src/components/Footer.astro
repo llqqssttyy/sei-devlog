@@ -16,14 +16,15 @@ const footerLinks = config.footerNav.filter((item) => item.href !== '/');
     {
       footerLinks.length > 0 && (
         <nav class="footer-links" aria-label="Footer navigation">
-          {footerLinks.map((item) => (
-            <a
-              href={withBase(item.href)}
-              data-search-palette-trigger={item.href === '/search' ? 'true' : undefined}
-            >
-              {item.label}
-            </a>
-          ))}
+          {footerLinks.map((item) =>
+            item.href === '/search/' ? (
+              <button type="button" data-search-palette-trigger="true">
+                {item.label}
+              </button>
+            ) : (
+              <a href={withBase(item.href)}>{item.label}</a>
+            )
+          )}
         </nav>
       )
     }
